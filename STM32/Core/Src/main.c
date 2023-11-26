@@ -96,7 +96,8 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  SCH_Add_Task(LED1test, 0, 200);
+  SCH_Add_Task(LED1test, 100, 200);
+  SCH_Add_Task(LED2test, 300, 0);
   while (1)
   {
     /* USER CODE END WHILE */
@@ -212,6 +213,7 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+int count = 200;
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim ) {
 	SCH_Update();
 }
