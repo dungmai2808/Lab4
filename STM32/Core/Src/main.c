@@ -20,7 +20,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "sched.h"
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -55,6 +54,8 @@ static void MX_TIM2_Init(void);
 void LED1test(void);
 void LED2test(void);
 void LED3test(void);
+void LED4test(void);
+void LED5test(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -97,9 +98,11 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  SCH_Add_Task(LED1test, 100, 200);
-  SCH_Add_Task(LED2test, 300, 0);
-  SCH_Add_Task(LED3test, 100, 300);
+  SCH_Add_Task(LED1test, 50, 0); // one-shot task
+  SCH_Add_Task(LED2test, 50, 100);
+  SCH_Add_Task(LED3test, 50, 150);
+  SCH_Add_Task(LED4test, 50, 200);
+  SCH_Add_Task(LED5test, 50, 250);
   while (1)
   {
     /* USER CODE END WHILE */
@@ -203,10 +206,13 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED1_Pin|LED2_Pin|LED3_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED1_Pin|LED2_Pin|LED3_Pin|LED4_Pin
+                          |LED5_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : LED1_Pin LED2_Pin LED3_Pin */
-  GPIO_InitStruct.Pin = LED1_Pin|LED2_Pin|LED3_Pin;
+  /*Configure GPIO pins : LED1_Pin LED2_Pin LED3_Pin LED4_Pin
+                           LED5_Pin */
+  GPIO_InitStruct.Pin = LED1_Pin|LED2_Pin|LED3_Pin|LED4_Pin
+                          |LED5_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -215,7 +221,6 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-int count = 200;
 void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef * htim ) {
 	SCH_Update();
 }
@@ -227,6 +232,12 @@ void LED2test(void){
 }
 void LED3test(void){
 	HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
+}
+void LED4test(void){
+	HAL_GPIO_TogglePin(LED4_GPIO_Port, LED4_Pin);
+}
+void LED5test(void){
+	HAL_GPIO_TogglePin(LED5_GPIO_Port, LED5_Pin);
 }
 /* USER CODE END 4 */
 
