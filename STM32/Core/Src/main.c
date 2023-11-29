@@ -54,6 +54,7 @@ static void MX_TIM2_Init(void);
 /* USER CODE BEGIN PFP */
 void LED1test(void);
 void LED2test(void);
+void LED3test(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -98,6 +99,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   SCH_Add_Task(LED1test, 100, 200);
   SCH_Add_Task(LED2test, 300, 0);
+  SCH_Add_Task(LED3test, 100, 300);
   while (1)
   {
     /* USER CODE END WHILE */
@@ -222,6 +224,9 @@ void LED1test(void){
 }
 void LED2test(void){
 	HAL_GPIO_TogglePin(LED2_GPIO_Port, LED2_Pin);
+}
+void LED3test(void){
+	HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
 }
 /* USER CODE END 4 */
 
